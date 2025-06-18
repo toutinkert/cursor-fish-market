@@ -1,0 +1,116 @@
+/* تنسيقات مكونات Clerk */
+
+.clerk-auth-container {
+  width: 100%;
+  max-width: 500px;
+  margin: 0 auto;
+  padding: 20px 0;
+}
+
+/* تخصيص مظهر مكونات Clerk */
+.clerk-root-box {
+  width: 100% !important;
+  max-width: 100% !important;
+}
+
+.clerk-card {
+  background-color: transparent !important;
+  box-shadow: none !important;
+  border: none !important;
+}
+
+/* تنسيق الأزرار */
+.cl-button-primary {
+  background-color: var(--primary-color) !important;
+  border-radius: var(--border-radius) !important;
+  padding: 12px 20px !important;
+  font-weight: 600 !important;
+  transition: all 0.3s ease !important;
+}
+
+.cl-button-primary:hover {
+  background-color: var(--primary-dark-color) !important;
+  transform: translateY(-2px) !important;
+}
+
+/* تنسيق حقول الإدخال */
+.cl-input {
+  border-radius: var(--border-radius) !important;
+  border: 1px solid var(--border-color) !important;
+  padding: 12px 15px !important;
+  transition: all 0.3s ease !important;
+}
+
+.cl-input:focus {
+  border-color: var(--primary-color) !important;
+  box-shadow: 0 0 0 2px rgba(var(--primary-rgb), 0.2) !important;
+}
+
+/* تنسيق الروابط */
+.cl-link {
+  color: var(--primary-color) !important;
+  text-decoration: none !important;
+  transition: all 0.3s ease !important;
+}
+
+.cl-link:hover {
+  color: var(--primary-dark-color) !important;
+  text-decoration: underline !important;
+}
+
+/* تنسيق الفواصل */
+.cl-divider {
+  border-color: var(--border-color) !important;
+  margin: 20px 0 !important;
+}
+
+/* تنسيق أزرار المصادقة الاجتماعية */
+.cl-socialButtonsIconButton {
+  border-radius: var(--border-radius) !important;
+  border: 1px solid var(--border-color) !important;
+  transition: all 0.3s ease !important;
+}
+
+.cl-socialButtonsIconButton:hover {
+  transform: translateY(-2px) !important;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1) !important;
+}
+
+/* تنسيق رسائل الخطأ */
+.cl-alert {
+  border-radius: var(--border-radius) !important;
+  padding: 12px 15px !important;
+  margin-bottom: 20px !important;
+}
+
+/* تنسيق العناوين */
+.cl-headerTitle {
+  font-size: 1.5rem !important;
+  font-weight: 700 !important;
+  color: var(--dark-color) !important;
+}
+
+.cl-headerSubtitle {
+  font-size: 1rem !important;
+  color: var(--gray-color) !important;
+}
+
+/* تنسيق التسميات */
+.cl-formFieldLabel {
+  font-weight: 600 !important;
+  margin-bottom: 8px !important;
+  color: var(--dark-color) !important;
+}
+
+/* تنسيق للاتجاه من اليمين إلى اليسار */
+.cl-card, .cl-form, .cl-formButtonPrimary, .cl-formField {
+  direction: rtl !important;
+  text-align: right !important;
+}
+
+/* تنسيق للهواتف المحمولة */
+@media (max-width: 768px) {
+  .clerk-auth-container {
+    padding: 10px;
+  }
+}

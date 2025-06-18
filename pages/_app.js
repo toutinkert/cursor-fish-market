@@ -1,8 +1,10 @@
 import '../styles/globals.css'
 import '../styles/stagewise.css'
 import '../styles/chat.css'
+import '../styles/clerk.css'
 import { useEffect } from 'react'
 import dynamic from 'next/dynamic'
+import { ClerkProvider } from '@clerk/nextjs'
 
 // Importer dynamiquement le composant ChatWidget pour éviter les erreurs de rendu côté serveur
 const ChatWidget = dynamic(() => import('../components/ChatWidget'), {
@@ -19,10 +21,12 @@ function MyApp({ Component, pageProps }) {
   }, [])
 
   return (
-    <div dir="rtl" lang="ar">
-      <Component {...pageProps} />
-      <ChatWidget />
-    </div>
+    <ClerkProvider>
+      <div dir="rtl" lang="ar">
+        <Component {...pageProps} />
+        <ChatWidget />
+      </div>
+    </ClerkProvider>
   )
 }
 

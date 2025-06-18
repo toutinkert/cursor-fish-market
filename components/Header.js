@@ -1,8 +1,10 @@
 import Link from 'next/link'
 import { useEffect, useState, useRef } from 'react'
+import { useUser, useClerk, SignedIn, SignedOut } from '@clerk/nextjs'
 
 const Header = () => {
-  const [currentUser, setCurrentUser] = useState(null)
+  const { user } = useUser()
+  const { signOut } = useClerk()
   const [cartItems, setCartItems] = useState([])
   const [isScrolled, setIsScrolled] = useState(false)
   const [currentPath, setCurrentPath] = useState('/')
@@ -17,12 +19,6 @@ const Header = () => {
   }, [])
 
   useEffect(() => {
-    // Vérifier si l'utilisateur est connecté
-    const storedUser = localStorage.getItem('currentUser')
-    if (storedUser) {
-      setCurrentUser(JSON.parse(storedUser))
-    }
-
     // Récupérer les articles du panier
     const storedCartItems = localStorage.getItem('cartItems')
     if (storedCartItems) {
@@ -57,11 +53,10 @@ const Header = () => {
   const handleLogout = (e) => {
     e.preventDefault()
     
-    // Supprimer l'utilisateur du localStorage
-    localStorage.removeItem('currentUser')
-    setCurrentUser(null)
+    // تسجيل الخروج باستخدام Clerk
+    signOut()
     
-    // Afficher un message de succès
+    // عرض رسالة نجاح
     showNotification('تم تسجيل الخروج بنجاح', 'success')
   }
 
@@ -121,13 +116,13 @@ const Header = () => {
               </Link>
             </li>
             <li>
-              <Link href="/vendors" className={currentPath === '/vendors' ? 'active' : ''}>
-                البائعين
+              <Link href="/dashboard" className={currentPath === '/dashboard' ? 'active' : ''}>
+                لوحة التحكم
               </Link>
             </li>
             <li>
-              <Link href="/dashboard" className={currentPath === '/dashboard' ? 'active' : ''}>
-                لوحة التحكم
+              <Link href="/chat" className={currentPath === '/chat' ? 'active' : ''}>
+                <i className="fas fa-comments"></i> الدردشة
               </Link>
             </li>
           </ul>
@@ -170,7 +165,7 @@ const Header = () => {
                   </Link>
                   <Link href="/service-pro-st" className="subscription-option">
                     <div className="subscription-icon">
-                      <i className="fas fa-stars"></i>
+                      <i className="fas fa-star"></i>
                     </div>
                     <div className="subscription-details">
                       <h4>Pro ST</h4>
@@ -182,7 +177,7 @@ const Header = () => {
             )}
           </div>
           
-          {currentUser ? (
+          <SignedIn>
             <>
               <Link href="/dashboard" className="btn btn-outline">
                 لوحة التحكم
@@ -191,7 +186,9 @@ const Header = () => {
                 تسجيل الخروج
               </button>
             </>
-          ) : (
+          </SignedIn>
+          
+          <SignedOut>
             <>
               <Link href="/login" className="btn btn-outline">
                 تسجيل الدخول
@@ -200,17 +197,15 @@ const Header = () => {
                 إنشاء حساب
               </Link>
             </>
-          )}
+          </SignedOut>
           
           <Link href="/cart" className="cart-icon">
-            <span>
-              <i className="fas fa-shopping-cart"></i>
-              {totalCartItems > 0 && (
-                <span id="cart-count" className="cart-count">
-                  {totalCartItems}
-                </span>
-              )}
-            </span>
+            <i className="fas fa-shopping-cart"></i>
+            {totalCartItems > 0 && (
+              <span id="cart-count" className="cart-count">
+                {totalCartItems}
+              </span>
+            )}
           </Link>
         </div>
       </div>
